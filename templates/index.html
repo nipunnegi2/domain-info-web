@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Domain Information Lookup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+        body {
+            height: 100%;
+            width: 100%;
+        }
+        .main {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+            background-image: linear-gradient(rgba(17, 17, 17, 0.8), rgba(14, 13, 13, 0.8)), url('https://img.freepik.com/free-photo/beautiful-shot-small-lake-with-wooden-rowboat-focus-amazing-clouds-sky_181624-2044.jpg?t=st=1716145249~exp=1716148849~hmac=03ad39f4e537403153364183bd5ecef7deab85fef17bbc8a1c73f995c7350887&w=996https://img.freepik.com/free-photo/solid-concrete-wall-textured-backdrop_53876-129493.jpg?t=st=1716145291~exp=1716148891~hmac=c21213af62f36c19d97ad18eb136e5f79acf06437c57307e346d4e90c714b00e&w=996');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .main h1 {
+            text-align: center;
+            color:#c8ff00;
+            font-family: "Bebas Neue", sans-serif;
+            margin-top: 3rem;
+            letter-spacing: .5rem;
+            text-transform: uppercase;
+            font-size: 2.5vw;
+            font-weight: 800;
+        }
+        .main p {
+            width: 50%;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 5rem;
+        }
+        input {
+            width: 60%;
+            font-size: 1.2rem;
+            padding: 1rem 3rem;
+            color: black;
+            border-top-left-radius: .5em;
+            border-bottom-left-radius: .5em;
+            border: 2px solid #fff;
+        }
+        input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        button {
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            background-color: #1363DF;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            color: #fff;
+            border-top-right-radius: .5em;
+            border-bottom-right-radius: .5em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #245aaaa1;
+        }
+        .section {
+            margin-top: 2rem;
+            text-align: left;
+            width: 80%;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+        }
+        .section h2 {
+            color: #c8ff00;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #c8ff00;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .section p, .section pre {
+            margin: 0.5rem 0;
+        }
+        .highlight {
+            color: #ff8800;
+            font-size: 1.1rem;
+        }
+        .info-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <h1>ISPIRT Foundation</h1>
+    <p>DomainAnalyzer is a tool that provides detailed information about a domain name, including its registration details, DNS records, IP address, location, and security analysis.</p>
+
+    <form method="post">
+        <input type="text" name="domain" placeholder="Enter domain name" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if domain %}
+     <h2>Results for {{ domain }}</h2>
+    <div class="section">
+        <h2>Domain Information</h2>
+        {% if data.domain_info %}
+            <p><span class="info-label">Domain Name:</span> {{ data.domain_info.domain_name }}</p>
+            <p><span class="info-label">Registrar:</span> {{ data.domain_info.registrar }}</p>
+            <p><span class="info-label">Registrar URL:</span> {{ data.domain_info.registrar_url }}</p>
+            <p><span class="info-label">Registrar IANA:</span> {{ data.domain_info.registrar_iana }}</p>
+            <p><span class="info-label">Updated Date:</span> {{ data.domain_info.updated_date }}</p>
+            <p><span class="info-label">Creation Date:</span> {{ data.domain_info.creation_date }}</p>
+            <p><span class="info-label">Expiration Date:</span> {{ data.domain_info.expiration_date }}</p>
+            <p><span class="info-label">Name Servers:</span> {{ data.domain_info.name_servers }}</p>
+            <p><span class="info-label">Organization:</span> {{ data.domain_info.organization }}</p>
+            <p><span class="info-label">State:</span> {{ data.domain_info.state }}</p>
+            <p><span class="info-label">Status:</span> {{ data.domain_info.status }}</p>
+            <p><span class="info-label">Emails:</span> {{ data.domain_info.emails }}</p>
+            <p><span class="info-label">Country:</span> <span class="highlight">{{ data.domain_info.country }}</span></p>
+            <p><span class="info-label">DNSSEC:</span> {{ data.domain_info.dnssec }}</p>
+        {% else %}
+            <p>No domain information found.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>IP and Location Information</h2>
+        {% if data.location_info %}
+            <p><span class="info-label">IP Address:</span> {{ data.location_info.ip }}</p>
+            <p><span class="info-label">City:</span> {{ data.location_info.city }}</p>
+            <p><span class="info-label">Region:</span> {{ data.location_info.region }}</p>
+            <p><span class="info-label">Country:</span> <span class="highlight">{{ data.location_info.country }}</span></p>
+            <p><span class="info-label">Organization:</span> {{ data.location_info.org }}</p>
+        {% else %}
+            <p>No location information found.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>VirusTotal Information</h2>
+        {% if data.virustotal_info %}
+            <p><span class="info-label">Domain:</span> {{ data.virustotal_info.domain }}</p>
+            <p><span class="info-label">Malicious:</span> {{ data.virustotal_info.malicious }}</p>
+            <p><span class="info-label">Suspicious:</span> {{ data.virustotal_info.suspicious }}</p>
+            <p><span class="info-label">Harmless:</span> {{ data.virustotal_info.harmless }}</p>
+            <p><span class="info-label">Undetected:</span> {{ data.virustotal_info.undetected }}</p>
+            <p><span class="info-label">Categories:</span> {{ data.virustotal_info.categories }}</p>
+        {% else %}
+            <p>No VirusTotal information found or an error occurred: {{ data.virustotal_error }}</p>
+        {% endif %}
+    </div>
+
+    {% endif %}
+</div>
+
+</body>
+</html>
